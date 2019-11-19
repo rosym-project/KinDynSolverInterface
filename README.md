@@ -17,3 +17,4 @@ Such approach achieves three goals:
    between recursive Newton Euler to/from composite rigid body can be
    done in one place without changing the user code.
 
+Currently I will do a RBDL version and keep the rest as TODOs.
