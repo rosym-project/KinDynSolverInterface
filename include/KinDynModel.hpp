@@ -29,6 +29,29 @@ public:
 //    KinDynModel();
 
 
+protected:
+    /**
+     * @brief base_link_name
+     */
+    std::string base_link_name;
+
+    /**
+     * @brief ee_link_name End-effector link of the robot/chain
+     */
+    std::string ee_link_name;
+
+    /**
+     * @brief base_link_id mirrors KinDynModel::base_link_name
+     * The idea is that if the back-end solver offers access by name and by id,
+     * we use the latter for better performance.
+     */
+    int base_link_id;
+
+    /**
+     * @brief ee_link_id similar to KinDynModel::base_link_id
+     */
+    int ee_link_id;
+
 };
 
 #endif // KINDYNMODEL_HPP
