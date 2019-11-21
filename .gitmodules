@@ -1,0 +1,4 @@
+[submodule "externals/rbdl"]
+	path = externals/rbdl
+	url = git@github.com:Pouya-moh/rbdl.git
+	branch = dev
