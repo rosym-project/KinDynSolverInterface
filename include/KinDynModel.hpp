@@ -1,5 +1,13 @@
+/* SPDX-License-Identifier: GPL-2.0 */
+/*
+ * Author: Pouya Mohammadi
+ *
+ */
+
 #ifndef KINDYNMODEL_HPP
 #define KINDYNMODEL_HPP
+
+#include <string>
 
 
 /**
