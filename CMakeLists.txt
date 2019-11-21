@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.0)
 #     cmake_policy(SET CMP0053 OLD)
 # endif()
 
-set(xQP_VERSION_MAJOR 0)
-set(xQP_VERSION_MINOR 1)
+set(KDInterface_VERSION_MAJOR 0)
+set(KDInterface_VERSION_MINOR 1)
 
 project(KinDynModel)
 
