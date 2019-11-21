@@ -1,4 +1,0 @@
-[submodule "externals/rbdl"]
-	path = externals/rbdl
-	url = https://github.com/erwincoumans/rbdl.git
-	branch = dev
