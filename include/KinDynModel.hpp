@@ -28,6 +28,8 @@ class KinDynModel {
 public:
 //    KinDynModel();
 
+    virtual ~KinDynModel() = 0;
+
     /**
      * @brief getEEJacobian
      * @param conf
