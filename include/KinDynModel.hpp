@@ -88,7 +88,15 @@ protected:
      */
     int ee_link_id;
 
-
+    /**
+     * @brief is_floating_base If the robot is floating base or not
+     * This should be handled with care by the implemnting classes as
+     * many solvers do not suport floating base notation out of the
+     * box. It should be either implemented by the developers, or the
+     * user of the class must be prompted, should this parameter is
+     * set to true.
+     */
+    bool is_floating_base;
 };
 
 #endif // KINDYNMODEL_HPP
