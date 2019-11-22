@@ -8,7 +8,7 @@
 #define KINDYNMODEL_HPP
 
 #include <string>
-
+#include <Eigen/Core>
 
 /**
  * @brief The KinDynModel class
@@ -27,6 +27,40 @@
 class KinDynModel {
 public:
 //    KinDynModel();
+
+    /**
+     * @brief getEEJacobian
+     * @param conf
+     * @param[out] jacobian
+     * @return Jacobian of the end-effector
+     */
+    virtual bool getEEJacobian(Eigen::VectorXd & conf,
+                               Eigen::MatrixXd & jacobian) const = 0;
+
+
+    /**
+     * @brief getCoM
+     * @param conf The configuration of the robot
+     * @param[out] com
+     * @return Center of the mass at conf
+     */
+    virtual bool getCoM(Eigen::Vector3d & conf,
+                        Eigen::Vector3d & com) const = 0;
+
+    /**
+     * @brief getEEPose
+     * @param conf
+     * @param[out] pose
+     * @return 4x4 homogenous transformation between the base and the EE
+     */
+    virtual bool getEEPose(Eigen::VectorXd & conf,
+                           Eigen::Matrix4d & pose) const = 0;
+
+
+    virtual bool getPointJacobian() const = 0;
+    virtual bool getJdotQdot() const = 0;
+    virtual bool getPointPose() const = 0;
+
 
 
 protected:
@@ -51,6 +85,7 @@ protected:
      * @brief ee_link_id similar to KinDynModel::base_link_id
      */
     int ee_link_id;
+
 
 };
 
