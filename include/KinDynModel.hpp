@@ -10,6 +10,7 @@
 #include <string>
 #include <Eigen/Core>
 
+
 /**
  * @brief The KinDynModel class
  * This is pure abstract class that acts as interface factory. The idea is that
@@ -58,11 +59,10 @@ public:
     virtual bool getEEPose(Eigen::VectorXd & conf,
                            Eigen::Matrix4d & pose) const = 0;
 
-
+   
     virtual bool getPointJacobian() const = 0;
     virtual bool getJdotQdot() const = 0;
     virtual bool getPointPose() const = 0;
-
 
 
 protected:
@@ -81,12 +81,12 @@ protected:
      * The idea is that if the back-end solver offers access by name and by id,
      * we use the latter for better performance.
      */
-    int base_link_id;
+    unsigned int base_link_id;
 
     /**
      * @brief ee_link_id similar to KinDynModel::base_link_id
      */
-    int ee_link_id;
+    unsigned int ee_link_id;
 
     /**
      * @brief is_floating_base If the robot is floating base or not
@@ -96,7 +96,17 @@ protected:
      * user of the class must be prompted, should this parameter is
      * set to true.
      */
-    bool is_floating_base;
+    bool is_floating_base;    
+
+    /**
+     * @brief model_initialized
+     * Checks if the model and specified links were found and initialized.
+     * If for instance, link_name or urdf are invalid, this remains false.
+     * This variable can later be exploited by the factory insuring the user
+     * gets its solver only everything is in order.
+     */
+    bool model_initialized = false;
+
 };
 
 #endif // KINDYNMODEL_HPP
