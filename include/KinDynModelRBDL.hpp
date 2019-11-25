@@ -23,10 +23,12 @@ public:
     virtual bool getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offset, Eigen::MatrixXd &jacobian) const override;
 
 private:
-    RigidBodyDynamics::Model model;
+    mutable RigidBodyDynamics::Model model;
     Eigen::Vector3d zeros3;
 
-    Eigen::MatrixXd local_jacobian;
+    // TODO make sure mutable is necessary here
+    // add mutable to this so that it can be set to zero if needed
+    mutable Eigen::MatrixXd local_jacobian;
 
 };
 
