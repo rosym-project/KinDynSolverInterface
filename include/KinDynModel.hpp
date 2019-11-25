@@ -120,6 +120,12 @@ protected:
      */
     bool model_initialized = false;
 
+    /**
+     * @brief dof_size
+     * Number of degrees of freedom, AKA, the state space size.
+     * TODO: Make sure about its consistency if ::is_floating_base=true
+     */
+    unsigned int dof_size;
 };
 
 #endif // KINDYNMODEL_HPP
