@@ -40,6 +40,19 @@ public:
     virtual bool getEEJacobian(Eigen::VectorXd & conf,
                                Eigen::MatrixXd & jacobian) const = 0;
 
+    /**
+     * @brief getEEJacobian
+     * @param conf
+     * @param offset Point position on the ee link
+     * @param jacobian Jacobian of the end-effector
+     * @return
+     *
+     * This is similar to its sibling version but with an offset.
+     * TODO: Make sure this make sense in RBDL strudcture
+     */
+    virtual bool getEEJacobian(Eigen::VectorXd & conf,
+                               Eigen::Vector3d & offset,
+                               Eigen::MatrixXd & jacobian) const = 0;
 
     /**
      * @brief getCoM
