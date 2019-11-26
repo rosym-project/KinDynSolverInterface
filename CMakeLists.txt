@@ -37,15 +37,38 @@ else ()
 endif ()
 
 
+## ----------------- RBDL Inteface ----------------- ##
 if(USE_RBDL)
     find_package(RBDL REQUIRED)
     include_directories(${RBDL_INCLUDE_DIR})
+
+    add_library(KinDynModelRBDL SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
+
+    target_include_directories(KinDynModelRBDL PUBLIC ${CMAKE_SOURCE_DIR}/include/)
+
+    target_link_libraries(KinDynModelRBDL ${RBDL_LIBRARY} ${RBDL_URDFReader_LIBRARY})
 endif()
 
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
+## ----------------- KDL Inteface ----------------- ##
+#  TBA
+#
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-    ${CMAKE_SOURCE_DIR}/include)
+## ----------------- Factory ----------------- ##
+add_library(${PROJECT_NAME} SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cpp)
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-# target_link_libraries(${PROJECT_NAME})
+#target_link_libraries(${PROJECT_NAME} KinDynModelRBDL)
+
+#install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+#install(TARGETS ${HEADERS} DESTINATION include)
+
+#set(BUILD_TESTS ON)
+#if(BUILD_TESTS)
+#    add_subdirectory(tests)
+#endif()
+
+add_executable(foo tests/compile-test.cpp)
+#target_include_directories(foo ${CMAKE_SOURCE_DIR}/include)
+#message("-------------${KinDynModelRBDL}")
+target_link_libraries(foo KinDynModelRBDL)

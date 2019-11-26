@@ -10,7 +10,6 @@
 #include <string>
 #include <Eigen/Core>
 
-
 /**
  * @brief The KinDynModel class
  * This is pure abstract class that acts as interface factory. The idea is that
@@ -29,7 +28,7 @@ class KinDynModel {
 public:
 //    KinDynModel();
 
-    virtual ~KinDynModel() = 0;
+//    virtual ~KinDynModel() = 0;
 
     /**
      * @brief getEEJacobian
