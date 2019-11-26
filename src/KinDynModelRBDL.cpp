@@ -5,10 +5,12 @@
  */
 
 
-#include <KinDynModelRBDL.hpp>
+//#include <KinDynModelRBDL.hpp>
+#include "KinDynModelRBDL.hpp"
 #include <rbdl/addons/urdfreader/urdfreader.h>
 #include <iostream>
 #include <rbdl/Kinematics.h>
+
 
 KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
                                  std::string base_name,
@@ -57,6 +59,21 @@ bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::MatrixXd &jaco
     //rbdl asks for a matrix that is all set to zero so the next line. But the code says otherwise...
     //local_jacobian.setZero(6,dof_size);
     RigidBodyDynamics::CalcPointJacobian6D(model,conf,ee_link_id,zeros3,local_jacobian,false);
+
+    //reorder the returned jacobian
+    jacobian.topRows<3>()=local_jacobian.bottomRows<3>();
+    jacobian.bottomRows<3>()=local_jacobian.topRows<3>();
+    return true;
+}
+
+KinDynModelRBDL::~KinDynModelRBDL(){
+
+}
+
+bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offset, Eigen::MatrixXd &jacobian) const {
+    //rbdl asks for a matrix that is all set to zero so the next line. But the code says otherwise...
+    //local_jacobian.setZero(6,dof_size);
+    RigidBodyDynamics::CalcPointJacobian6D(model,conf,ee_link_id,offset,local_jacobian,false);
 
     //reorder the returned jacobian
     jacobian.topRows<3>()=local_jacobian.bottomRows<3>();
