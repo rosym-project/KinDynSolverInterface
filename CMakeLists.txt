@@ -10,14 +10,11 @@ set(KDInterface_VERSION_MINOR 1)
 
 project(KinDynModel)
 
-# Telling RBDL cmake to add its urdfreader module and add it to the build
-set(RBDL_BUILD_ADDON_URDFREADER ON CACHE BOOL "Force enable the urdfreader" FORCE)
+#set(SOURCES ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
 
-set(SOURCES ${CMAKE_SOURCE_DIR}/src/KinDynModel.cpp
-            ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
-            ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp
-            ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp
-  )
+#set(HEADERS ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
+#            ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp
+#            ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -58,17 +55,7 @@ add_library(${PROJECT_NAME} SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cp
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-#target_link_libraries(${PROJECT_NAME} KinDynModelRBDL)
-
-#install(TARGETS ${PROJECT_NAME} DESTINATION lib)
-#install(TARGETS ${HEADERS} DESTINATION include)
-
-#set(BUILD_TESTS ON)
-#if(BUILD_TESTS)
-#    add_subdirectory(tests)
-#endif()
-
-add_executable(foo tests/compile-test.cpp)
-#target_include_directories(foo ${CMAKE_SOURCE_DIR}/include)
-#message("-------------${KinDynModelRBDL}")
-target_link_libraries(foo KinDynModelRBDL)
+set(BUILD_TESTS OFF)
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
