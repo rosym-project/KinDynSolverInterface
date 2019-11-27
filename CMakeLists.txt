@@ -34,7 +34,7 @@ else ()
 endif ()
 
 
-## ----------------- RBDL Inteface ----------------- ##
+## ----------------- RBDL Interface ----------------- ##
 if(USE_RBDL)
     find_package(RBDL REQUIRED)
     include_directories(${RBDL_INCLUDE_DIR})
@@ -46,7 +46,7 @@ if(USE_RBDL)
     target_link_libraries(KinDynModelRBDL ${RBDL_LIBRARY} ${RBDL_URDFReader_LIBRARY})
 endif()
 
-## ----------------- KDL Inteface ----------------- ##
+## ----------------- KDL Interface ----------------- ##
 #  TBA
 #
 
@@ -55,7 +55,12 @@ add_library(${PROJECT_NAME} SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cp
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-set(BUILD_TESTS OFF)
+if(USE_RBDL)
+    target_link_libraries(${PROJECT_NAME} PUBLIC KinDynModelRBDL)
+endif()
+
+
+set(BUILD_TESTS ON)
 if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
