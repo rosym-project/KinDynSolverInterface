@@ -12,7 +12,6 @@
 #include <iostream>
 #include <rbdl/Kinematics.h>
 
-
 KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
                                  std::string base_name,
                                  std::string ee_name,
@@ -23,7 +22,7 @@ KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
     if(!RigidBodyDynamics::Addons::URDFReadFromFile(urdf_file_path.c_str(),
                                                     & model,
                                                     floating_base,
-                                                    false)) {
+                                                    true)) {
         std::cerr << "Problem loading the model at the path: " << urdf_file_path <<std::endl;
         // abort();
         // FIXME
@@ -62,10 +61,16 @@ KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
     }
 }
 
-bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::MatrixXd &jacobian) const {
+bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf,
+                                    Eigen::MatrixXd &jacobian) const {    
     //rbdl asks for a matrix that is all set to zero so the next line. But the code says otherwise...
     //local_jacobian.setZero(6,dof_size);
-    RigidBodyDynamics::CalcPointJacobian6D(model,conf,ee_link_id,zeros3,local_jacobian,false);
+    RigidBodyDynamics::CalcPointJacobian6D(model,
+                                           conf,
+                                           ee_link_id,
+                                           zeros3,
+                                           local_jacobian,
+                                           default_update_kinematic_model);
 
     //reorder the returned jacobian
     jacobian.topRows<3>()=local_jacobian.bottomRows<3>();
@@ -77,10 +82,17 @@ KinDynModelRBDL::~KinDynModelRBDL(){
 
 }
 
-bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offset, Eigen::MatrixXd &jacobian) const {
+bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf,
+                                    Eigen::Vector3d &offset,
+                                    Eigen::MatrixXd &jacobian) const {
     //rbdl asks for a matrix that is all set to zero so the next line. But the code says otherwise...
     //local_jacobian.setZero(6,dof_size);
-    RigidBodyDynamics::CalcPointJacobian6D(model,conf,ee_link_id,offset,local_jacobian,false);
+    RigidBodyDynamics::CalcPointJacobian6D(model,
+                                           conf,
+                                           ee_link_id,
+                                           offset,
+                                           local_jacobian,
+                                           default_update_kinematic_model);
 
     //reorder the returned jacobian
     jacobian.topRows<3>()=local_jacobian.bottomRows<3>();
@@ -88,10 +100,21 @@ bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offs
     return true;
 }
 
-bool KinDynModelRBDL::getCoM(Eigen::VectorXd &conf, Eigen::Vector3d &com) const {
+bool KinDynModelRBDL::getCoM(Eigen::VectorXd &conf,
+                             Eigen::Vector3d &com) const {
     double mass;
-    RigidBodyDynamics::Utils::CalcCenterOfMass(model, conf, qdot, nullptr, mass, tmp_vec3, nullptr, nullptr, nullptr, nullptr, false);
-    // somehow cannot pass the user's retrun to the function :/
+    RigidBodyDynamics::Utils::CalcCenterOfMass(model,
+                                               conf,
+                                               qdot,
+                                               nullptr,
+                                               mass,
+                                               tmp_vec3,
+                                               nullptr,
+                                               nullptr,
+                                               nullptr,
+                                               nullptr,
+                                               default_update_kinematic_model);
+    // somehow cannot pass the user's retrun to the function :/    
     com(0) = tmp_vec3(0);
     com(1) = tmp_vec3(1);
     com(2) = tmp_vec3(2);
@@ -107,7 +130,8 @@ bool KinDynModelRBDL::getPointJacobian() const {
     return false;
 }
 
-bool KinDynModelRBDL::getEEPose(Eigen::VectorXd &conf, Eigen::Matrix4d &pose) const {
+bool KinDynModelRBDL::getEEPose(Eigen::VectorXd &conf,
+                                Eigen::Matrix4d &pose) const {
     std::cerr<<"getEEPose is not implemented yet..."<<std::endl;
     return false;
 }
