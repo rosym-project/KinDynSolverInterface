@@ -40,7 +40,7 @@ configuring the project by
 `-DCMAKE_PREFIX_PATH=/path/to/your/install`.
 
 ## Notes:
-### <a name "rbdl-issue"></a> RBDL
+### <a name="rbdl-issue"></a>RBDL
 1. RBDL has this method called `UpdateKinematics()` which is a bit
    peculiar: each function call (e.g., `CalcPointJacobian6D`) has an
    optional boolean parameter that if `=true` calls the
@@ -53,4 +53,4 @@ configuring the project by
    
    
 ## TODO
-1. Resolve the [issue of RBDL's `UpdateKinematics()`](rbdl-issue).
+1. Resolve the [issue of RBDL's `UpdateKinematics()`](#rbdl-issue).
