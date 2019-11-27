@@ -18,3 +18,35 @@ Such approach achieves three goals:
    done in one place without changing the user code.
 
 Currently I will do a RBDL version and keep the rest as TODOs.
+
+## Dependencies
+### RBDL
+Can be obtained from
+[https://bitbucket.org/rbdl/rbdl/src](https://bitbucket.org/rbdl/rbdl/src)
+(mercurial) or
+[https://github.com/erwincoumans/rbdl.git](https://github.com/erwincoumans/rbdl.git)
+(git). Then:
+
+``` sh
+git clone https://github.com/erwincoumans/rbdl.git
+mkdir build && cd build
+cmake .. -DRBDL_BUILD_ADDON_URDFREADER=ON -DCMAKE_INSTALL_PREFIX=/path/to/your/install
+make
+make install
+```
+
+The install path then can be pass to this project's cmake when
+configuring the project by
+`-DCMAKE_PREFIX_PATH=/path/to/your/install`.
+
+## Notes:
+### RBDL
+1. RBDL has this method called `UpdateKinematics()` which is a bit
+   peculiar: each function call (e.g., `CalcPointJacobian6D`) has an
+   optional boolean parameter that if `=true` calls the
+   `UpdateKinematics()`. If we pass false, then function
+   kinematic/dynamic calls return zero. So we have two options: either
+   call the factions with `=true`, or, make a call to
+   `UpdateKinematics()` from somewhere like the user space and update
+   everything. If the update is not computationally expensive, I
+   rather to for the first option.
