@@ -39,6 +39,12 @@ KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
     // sending them back to user
     this->local_jacobian = Eigen::MatrixXd::Zero(6,dof_size);
 
+    // Some RBDL functions, e.g., CalcCenterOfMass require a vector of joint
+    // velocities. I am not sure why do I need it in a static case but regardless,
+    // here I make one to pass it to said functions. If the real joint velocities
+    // are actually required, they are passed by the user to function overloads.
+    this->qdot = Eigen::VectorXd::Zero(dof_size);
+
 
 
     this->base_link_name = base_name;
@@ -94,4 +100,24 @@ bool KinDynModelRBDL::getCoM(Eigen::VectorXd &conf, Eigen::Vector3d &com) const 
 
 unsigned int KinDynModelRBDL::getDofSize() const {
     return this->dof_size;
+}
+
+bool KinDynModelRBDL::getPointJacobian() const {
+    std::cerr<<"getPointJacobian is not implemented yet..."<<std::endl;
+    return false;
+}
+
+bool KinDynModelRBDL::getEEPose(Eigen::VectorXd &conf, Eigen::Matrix4d &pose) const {
+    std::cerr<<"getEEPose is not implemented yet..."<<std::endl;
+    return false;
+}
+
+bool KinDynModelRBDL::getPointPose() const {
+    std::cerr<<"getPointPose is not implemented yet..."<<std::endl;
+    return false;
+}
+
+bool KinDynModelRBDL::getJdotQdot() const {
+    std::cerr<<"getJdotQdot is not implemented yet..."<<std::endl;
+    return false;
 }
