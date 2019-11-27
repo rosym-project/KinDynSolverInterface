@@ -23,7 +23,7 @@ KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
     if(!RigidBodyDynamics::Addons::URDFReadFromFile(urdf_file_path.c_str(),
                                                     & model,
                                                     floating_base,
-                                                    true)) {
+                                                    false)) {
         std::cerr << "Problem loading the model at the path: " << urdf_file_path <<std::endl;
         // abort();
         // FIXME
