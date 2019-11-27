@@ -40,7 +40,7 @@ configuring the project by
 `-DCMAKE_PREFIX_PATH=/path/to/your/install`.
 
 ## Notes:
-### RBDL
+### <a name "rbdl-issue"></a> RBDL
 1. RBDL has this method called `UpdateKinematics()` which is a bit
    peculiar: each function call (e.g., `CalcPointJacobian6D`) has an
    optional boolean parameter that if `=true` calls the
@@ -49,4 +49,8 @@ configuring the project by
    call the factions with `=true`, or, make a call to
    `UpdateKinematics()` from somewhere like the user space and update
    everything. If the update is not computationally expensive, I
-   rather to for the first option.
+   rather to for the first option. For the moment I pass true.
+   
+   
+## TODO
+1. Resolve the [issue of RBDL's `UpdateKinematics()`](rbdl-issue).
