@@ -23,7 +23,7 @@ public:
     virtual bool getEEJacobian(Eigen::VectorXd &conf, Eigen::MatrixXd &jacobian) const override;
     virtual bool getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offset, Eigen::MatrixXd &jacobian) const override;
     virtual bool getPointJacobian() const override;
-    virtual bool getEEPose(Eigen::VectorXd &conf, Eigen::Matrix4d &pose) const override;
+    virtual bool getEEPose(Eigen::VectorXd &conf, Eigen::Affine3d &pose) const override;
     virtual bool getPointPose() const override;
     virtual bool getCoM(Eigen::VectorXd &conf, Eigen::Vector3d &com) const override;
     virtual bool getJdotQdot() const override;

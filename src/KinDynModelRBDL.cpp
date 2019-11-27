@@ -131,9 +131,16 @@ bool KinDynModelRBDL::getPointJacobian() const {
 }
 
 bool KinDynModelRBDL::getEEPose(Eigen::VectorXd &conf,
-                                Eigen::Matrix4d &pose) const {
-    std::cerr<<"getEEPose is not implemented yet..."<<std::endl;
-    return false;
+                                Eigen::Affine3d &pose) const {
+    
+    // Note for future readers: .lienar() is the 3x3 matrix from the
+    // top-left of homogenous 4x4 transformation matrix. .linear()
+    // includes rotation, shear and scale, however, when the later two
+    // are not present, it basically present .roation() but is
+    // slightly more efficient.
+    pose.linear() = RigidBodyDynamics::CalcBodyWorldOrientation(model, conf, ee_link_id);
+    pose.translation() = RigidBodyDynamics::CalcBodyToBaseCoordinates(model, conf, ee_link_id, zeros3);
+    return true;
 }
 
 bool KinDynModelRBDL::getPointPose() const {

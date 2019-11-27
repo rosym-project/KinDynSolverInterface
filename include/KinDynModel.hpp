@@ -9,6 +9,7 @@
 
 #include <string>
 #include <Eigen/Core>
+#include <Eigen/Geometry>
 
 /**
  * @brief The KinDynModel class
@@ -69,7 +70,7 @@ public:
      * @return 4x4 homogenous transformation between the base and the EE
      */
     virtual bool getEEPose(Eigen::VectorXd & conf,
-                           Eigen::Matrix4d & pose) const = 0;
+                           Eigen::Affine3d & pose) const = 0;
 
     /**
      * @brief getDofSize
