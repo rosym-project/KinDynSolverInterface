@@ -25,8 +25,9 @@ public:
     virtual bool getPointJacobian() const override;
     virtual bool getEEPose(Eigen::VectorXd &conf, Eigen::Matrix4d &pose) const override;
     virtual bool getPointPose() const override;
-    virtual bool getCoM(Eigen::Vector3d &conf, Eigen::Vector3d &com) const override;
+    virtual bool getCoM(Eigen::VectorXd &conf, Eigen::Vector3d &com) const override;
     virtual bool getJdotQdot() const override;
+    virtual unsigned int getDofSize() const override;
 
 private:
     Eigen::Vector3d zeros3;
@@ -35,6 +36,8 @@ private:
     // add mutable to this so that it can be set to zero if needed
     mutable RigidBodyDynamics::Model model;
     mutable Eigen::MatrixXd local_jacobian;
+    mutable Eigen::VectorXd qdot;
+    mutable RigidBodyDynamics::Math::Vector3d tmp_vec3;
 
 };
 

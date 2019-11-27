@@ -80,6 +80,17 @@ bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offs
     jacobian.bottomRows<3>()=local_jacobian.topRows<3>();
     return true;
 }
+
+bool KinDynModelRBDL::getCoM(Eigen::VectorXd &conf, Eigen::Vector3d &com) const {
+    double mass;
+    RigidBodyDynamics::Utils::CalcCenterOfMass(model, conf, qdot, nullptr, mass, tmp_vec3, nullptr, nullptr, nullptr, nullptr, false);
+    // somehow cannot pass the user's retrun to the function :/
+    com(0) = tmp_vec3(0);
+    com(1) = tmp_vec3(1);
+    com(2) = tmp_vec3(2);
+    return true;
+}
+
 unsigned int KinDynModelRBDL::getDofSize() const {
     return this->dof_size;
 }

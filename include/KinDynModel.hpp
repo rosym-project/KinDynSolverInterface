@@ -59,7 +59,7 @@ public:
      * @param[out] com
      * @return Center of the mass at conf
      */
-    virtual bool getCoM(Eigen::Vector3d & conf,
+    virtual bool getCoM(Eigen::VectorXd & conf,
                         Eigen::Vector3d & com) const = 0;
 
     /**
