@@ -50,7 +50,10 @@ configuring the project by
    `UpdateKinematics()` from somewhere like the user space and update
    everything. If the update is not computationally expensive, I
    rather to for the first option. For the moment I pass true.
+2. RBDL urdf-reader plugin that we use is a mysterious creature that
+   functions in baffling ways. Maybe, just maybe, we need to resort to
+   a more stable/reliable solution.
    
    
 ## TODO
-1. Resolve the [issue of RBDL's `UpdateKinematics()`](#rbdl-issue).
+1. Resolve the [issue 1](#rbdl-issue) of RBDL.
