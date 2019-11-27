@@ -28,7 +28,7 @@ Can be obtained from
 (git). Then:
 
 ``` sh
-git clone https://github.com/erwincoumans/rbdl.git
+git clone -b dev https://github.com/erwincoumans/rbdl.git
 mkdir build && cd build
 cmake .. -DRBDL_BUILD_ADDON_URDFREADER=ON -DCMAKE_INSTALL_PREFIX=/path/to/your/install
 make
