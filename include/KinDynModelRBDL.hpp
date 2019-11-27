@@ -31,6 +31,8 @@ public:
 
 private:
     Eigen::Vector3d zeros3;
+    bool default_update_kinematic_model = true;
+    
 
     // TODO make sure mutable is necessary here
     // add mutable to this so that it can be set to zero if needed
