@@ -80,3 +80,6 @@ bool KinDynModelRBDL::getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offs
     jacobian.bottomRows<3>()=local_jacobian.topRows<3>();
     return true;
 }
+unsigned int KinDynModelRBDL::getDofSize() const {
+    return this->dof_size;
+}

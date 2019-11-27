@@ -71,10 +71,19 @@ public:
     virtual bool getEEPose(Eigen::VectorXd & conf,
                            Eigen::Matrix4d & pose) const = 0;
 
-   
+    /**
+     * @brief getDofSize
+     * @return Robot's degrees of freedom count
+     *
+     * It returns a value that is stored in ::dof_size and is populated in
+     * the constructor of the class that inherit this interface.
+     */
+    virtual unsigned int getDofSize() const = 0;
+
     virtual bool getPointJacobian() const = 0;
     virtual bool getJdotQdot() const = 0;
     virtual bool getPointPose() const = 0;
+
 
 
 protected:
