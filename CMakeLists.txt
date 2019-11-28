@@ -5,19 +5,18 @@ cmake_minimum_required(VERSION 3.0)
 #     cmake_policy(SET CMP0053 OLD)
 # endif()
 
-set(KDInterface_VERSION_MAJOR 0)
-set(KDInterface_VERSION_MINOR 1)
+set(KDMI_VERSION_MAJOR 0)
+set(KDMI_VERSION_MINOR 1)
 
-project(KinDynModel)
+project(KDMI VERSION ${KDMI_VERSION_MAJOR}.${KDMI_VERSION_MINOR})
+
+configure_file(${PROJECT_SOURCE_DIR}/config/version.h.in version.h)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # should be set externally by the user
 set(USE_RBDL ON)
 set(USE_KDL OFF)
-
-# required for RBDL and other .pc packages
-find_package(PkgConfig REQUIRED)
 
 find_package (Eigen3 3.3 REQUIRED)
 if (EIGEN3_FOUND)
@@ -41,7 +40,7 @@ if(USE_RBDL)
 
     # installing RBDL-interface if it is being used
     install(TARGETS KinDynModelRBDL DESTINATION lib)
-    install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include)
+    install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include/${PROJECT_NAME})
 endif()
 
 ## ----------------- KDL Interface ----------------- ##
@@ -49,19 +48,20 @@ endif()
 #
 
 ## ----------------- Factory ----------------- ##
-add_library(${PROJECT_NAME} SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cpp)
+add_library(KinDynInterface SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(KinDynInterface PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 if(USE_RBDL)
-    target_link_libraries(${PROJECT_NAME} PUBLIC KinDynModelRBDL)
+    target_link_libraries(KinDynInterface PUBLIC KinDynModelRBDL)
 endif()
 
 ## ----------------- INSTALLING ----------------- ##
 install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
               ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp
-              DESTINATION include)
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+              ${PROJECT_BINARY_DIR}/version.h
+              DESTINATION include/${PROJECT_NAME})
+install(TARGETS KinDynInterface DESTINATION lib)
 
 
 set(BUILD_TESTS ON)
