@@ -57,6 +57,12 @@ if(USE_RBDL)
     target_link_libraries(${PROJECT_NAME} PUBLIC KinDynModelRBDL)
 endif()
 
+## ----------------- INSTALLING ----------------- ##
+install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
+              ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp
+              DESTINATION include)
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+
 
 set(BUILD_TESTS ON)
 if(BUILD_TESTS)
