@@ -12,7 +12,7 @@ project(KDMI VERSION ${KDMI_VERSION_MAJOR}.${KDMI_VERSION_MINOR})
 
 configure_file(${PROJECT_SOURCE_DIR}/config/version.h.in version.h)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/config)
 
 # should be set externally by the user
 set(USE_RBDL ON)
