@@ -1,0 +1,14 @@
+/* SPDX-License-Identifier: GPL-2.0 */
+
+/* 
+ * Author: Pouya Mohammadi
+ *
+ */
+
+#ifndef KDMI_VERSION_H_IN
+#define KDMI_VERSION_H_IN
+
+#define KDMI_VERSION_MAJOR @KDMI_VERSION_MAJOR@
+#define KDMI_VERSION_MINOR @KDMI_VERSION_MINOR@
+
+#endif /* KDMI_VERSION_H_IN */
