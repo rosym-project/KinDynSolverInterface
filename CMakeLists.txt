@@ -10,12 +10,6 @@ set(KDInterface_VERSION_MINOR 1)
 
 project(KinDynModel)
 
-#set(SOURCES ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
-
-#set(HEADERS ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
-#            ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp
-#            ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp)
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 
 # should be set externally by the user
