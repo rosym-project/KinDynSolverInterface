@@ -38,6 +38,10 @@ if(USE_RBDL)
     target_include_directories(KinDynModelRBDL PUBLIC ${CMAKE_SOURCE_DIR}/include/)
 
     target_link_libraries(KinDynModelRBDL ${RBDL_LIBRARY} ${RBDL_URDFReader_LIBRARY})
+
+    # installing RBDL-interface if it is being used
+    install(TARGETS KinDynModelRBDL DESTINATION lib)
+    install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include)
 endif()
 
 ## ----------------- KDL Interface ----------------- ##
