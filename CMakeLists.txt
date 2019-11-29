@@ -34,12 +34,16 @@ if(USE_RBDL)
 
     add_library(KinDynModelRBDL SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
 
-    target_include_directories(KinDynModelRBDL PUBLIC ${CMAKE_SOURCE_DIR}/include/)
+    target_include_directories(KinDynModelRBDL PUBLIC
+                               $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                               $<INSTALL_INTERFACE:include>)
 
     target_link_libraries(KinDynModelRBDL ${RBDL_LIBRARY} ${RBDL_URDFReader_LIBRARY})
 
     # installing RBDL-interface if it is being used
-    install(TARGETS KinDynModelRBDL DESTINATION lib)
+    install(TARGETS KinDynModelRBDL DESTINATION lib
+            EXPORT ${PROJECT_NAME}Targets)
+    
     install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include/${PROJECT_NAME})
 endif()
 
@@ -50,7 +54,9 @@ endif()
 ## ----------------- Factory ----------------- ##
 add_library(KinDynInterface SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cpp)
 
-target_include_directories(KinDynInterface PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(KinDynInterface PUBLIC
+                           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                           $<INSTALL_INTERFACE:include>)
 
 if(USE_RBDL)
     target_link_libraries(KinDynInterface PUBLIC KinDynModelRBDL)
@@ -61,8 +67,13 @@ install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
               ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp
               ${PROJECT_BINARY_DIR}/version.h
               DESTINATION include/${PROJECT_NAME})
-install(TARGETS KinDynInterface DESTINATION lib)
+            
+install(TARGETS KinDynInterface DESTINATION lib
+        EXPORT ${PROJECT_NAME}Targets)
 
+install(EXPORT ${PROJECT_NAME}Targets
+        FILE ${PROJECT_NAME}Targets.cmake
+        DESTINATION lib/cmake/${PROJECT_NAME})
 
 set(BUILD_TESTS ON)
 if(BUILD_TESTS)
