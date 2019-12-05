@@ -12,7 +12,7 @@ project(KDMI VERSION ${KDMI_VERSION_MAJOR}.${KDMI_VERSION_MINOR})
 
 configure_file(${PROJECT_SOURCE_DIR}/config/version.h.in version.h)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/config)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/config)
 
 # should be set externally by the user
 set(USE_RBDL ON)
@@ -32,10 +32,10 @@ if(USE_RBDL)
     find_package(RBDL REQUIRED)
     include_directories(${RBDL_INCLUDE_DIR})
 
-    add_library(KinDynModelRBDL SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
+    add_library(KinDynModelRBDL SHARED ${PROJECT_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
 
     target_include_directories(KinDynModelRBDL PUBLIC
-                               $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                               $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                                $<INSTALL_INTERFACE:include>)
 
     target_link_libraries(KinDynModelRBDL ${RBDL_LIBRARY} ${RBDL_URDFReader_LIBRARY})
@@ -44,7 +44,7 @@ if(USE_RBDL)
     install(TARGETS KinDynModelRBDL DESTINATION lib
             EXPORT ${PROJECT_NAME}Targets)
     
-    install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include/${PROJECT_NAME})
+    install(FILES ${PROJECT_SOURCE_DIR}/include/KinDynModelRBDL.hpp DESTINATION include/${PROJECT_NAME})
 endif()
 
 ## ----------------- KDL Interface ----------------- ##
@@ -52,10 +52,10 @@ endif()
 #
 
 ## ----------------- Factory ----------------- ##
-add_library(KinDynInterface SHARED ${CMAKE_SOURCE_DIR}/src/KinDynModelFactory.cpp)
+add_library(KinDynInterface SHARED ${PROJECT_SOURCE_DIR}/src/KinDynModelFactory.cpp)
 
 target_include_directories(KinDynInterface PUBLIC
-                           $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+                           $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
                            $<INSTALL_INTERFACE:include>)
 
 if(USE_RBDL)
@@ -63,8 +63,8 @@ if(USE_RBDL)
 endif()
 
 ## ----------------- INSTALLING ----------------- ##
-install(FILES ${CMAKE_SOURCE_DIR}/include/KinDynModel.hpp
-              ${CMAKE_SOURCE_DIR}/include/KinDynModelFactory.hpp
+install(FILES ${PROJECT_SOURCE_DIR}/include/KinDynModel.hpp
+              ${PROJECT_SOURCE_DIR}/include/KinDynModelFactory.hpp
               ${PROJECT_BINARY_DIR}/version.h
               DESTINATION include/${PROJECT_NAME})
             
@@ -75,7 +75,7 @@ install(EXPORT ${PROJECT_NAME}Targets
         FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION lib/cmake/${PROJECT_NAME})
 
-set(BUILD_TESTS ON)
+set(BUILD_TESTS OFF)
 if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
