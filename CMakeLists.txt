@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.0.2)
 
 # TODO double check if this policy is fine
 # if(POLICY CMP0053)
 #     cmake_policy(SET CMP0053 OLD)
 # endif()
+
+include(CMakePackageConfigHelpers)
 
 set(KDMI_VERSION_MAJOR 0)
 set(KDMI_VERSION_MINOR 1)
@@ -63,6 +65,10 @@ if(USE_RBDL)
 endif()
 
 ## ----------------- INSTALLING ----------------- ##
+configure_package_config_file("${PROJECT_SOURCE_DIR}/config/${CMAKE_PROJECT_NAME}-config.cmake.in"
+                              "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake"
+                               INSTALL_DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
+
 install(FILES ${PROJECT_SOURCE_DIR}/include/KinDynModel.hpp
               ${PROJECT_SOURCE_DIR}/include/KinDynModelFactory.hpp
               ${PROJECT_BINARY_DIR}/version.h
@@ -71,9 +77,13 @@ install(FILES ${PROJECT_SOURCE_DIR}/include/KinDynModel.hpp
 install(TARGETS KinDynInterface DESTINATION lib
         EXPORT ${PROJECT_NAME}Targets)
 
+
 install(EXPORT ${PROJECT_NAME}Targets
-        FILE ${PROJECT_NAME}Targets.cmake
+        FILE   ${PROJECT_NAME}Targets.cmake
         DESTINATION lib/cmake/${PROJECT_NAME})
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake"
+        DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
 
 set(BUILD_TESTS OFF)
 if(BUILD_TESTS)
