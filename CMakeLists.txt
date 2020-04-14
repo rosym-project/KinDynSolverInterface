@@ -33,12 +33,11 @@ endif ()
 if(USE_RBDL)    
     FIND_PACKAGE(PkgConfig)
     set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
-    pkg_search_module(RBDL REQUIRED RBDL)
+    pkg_search_module(RBDL REQUIRED rbdl)
     if(NOT RBDL_FOUND)
         message(FATAL_ERROR "Could not find RBDL. Set -DCMAKE_PREFIX_PATH...")
     endif()
-    message(STATUS "------------------${RBDL_INCLUDE_DIRS}")
-    include_directories(${RBDL_INCLUDE_DIR})
+    include_directories(${RBDL_INCLUDE_DIRS})
 
     add_library(KinDynModelRBDL SHARED ${PROJECT_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
 
@@ -91,7 +90,7 @@ install(EXPORT ${PROJECT_NAME}Targets
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake"
         DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
 
-set(BUILD_TESTS ON)
+set(BUILD_TESTS OFF)
 if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
