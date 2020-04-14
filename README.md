@@ -22,13 +22,10 @@ Currently I will do a RBDL version and keep the rest as TODOs.
 ## Dependencies
 ### RBDL
 Can be obtained from
-[https://bitbucket.org/rbdl/rbdl/src](https://bitbucket.org/rbdl/rbdl/src)
-(mercurial) or
-[https://github.com/erwincoumans/rbdl.git](https://github.com/erwincoumans/rbdl.git)
-(git). Then:
+[https://github.com/rbdl/rbdl.git](https://github.com/rbdl/rbdl.git)
 
 ``` sh
-git clone -b dev https://github.com/erwincoumans/rbdl.git
+git clone -b dev https://github.com/rbdl/rbdl.git
 mkdir build && cd build
 cmake .. -DRBDL_BUILD_ADDON_URDFREADER=ON -DCMAKE_INSTALL_PREFIX=/path/to/your/install
 make
