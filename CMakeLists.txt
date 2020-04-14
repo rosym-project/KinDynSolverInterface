@@ -30,8 +30,14 @@ endif ()
 
 
 ## ----------------- RBDL Interface ----------------- ##
-if(USE_RBDL)
-    find_package(RBDL REQUIRED)
+if(USE_RBDL)    
+    FIND_PACKAGE(PkgConfig)
+    set(PKG_CONFIG_USE_CMAKE_PREFIX_PATH ON)
+    pkg_search_module(RBDL REQUIRED RBDL)
+    if(NOT RBDL_FOUND)
+        message(FATAL_ERROR "Could not find RBDL. Set -DCMAKE_PREFIX_PATH...")
+    endif()
+    message(STATUS "------------------${RBDL_INCLUDE_DIRS}")
     include_directories(${RBDL_INCLUDE_DIR})
 
     add_library(KinDynModelRBDL SHARED ${PROJECT_SOURCE_DIR}/src/KinDynModelRBDL.cpp)
