@@ -91,7 +91,7 @@ install(EXPORT ${PROJECT_NAME}Targets
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake"
         DESTINATION lib/cmake/${CMAKE_PROJECT_NAME})
 
-set(BUILD_TESTS OFF)
+set(BUILD_TESTS ON)
 if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
