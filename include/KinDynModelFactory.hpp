@@ -17,7 +17,8 @@ public:
     static KinDynModel* initialize(std::string urdf_file_path,
                                    std::string base_name,
                                    std::string ee_name,
-                                   bool floating_base,
+                                   bool floating_base,                                   
+                                   bool parse_model_verbose = true,
                                    int kin_dyn_solver = KinDynSolvers::RBDL);
 };
 

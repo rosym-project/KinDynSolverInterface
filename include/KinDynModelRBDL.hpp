@@ -18,7 +18,8 @@ public:
     KinDynModelRBDL(std::string urdf_file_path,
                     std::string base_name,
                     std::string ee_name,
-                    bool floating_base);
+                    bool floating_base,
+                    bool parse_model_verbose);
 
     virtual bool getEEJacobian(Eigen::VectorXd &conf, Eigen::MatrixXd &jacobian) const override;
     virtual bool getEEJacobian(Eigen::VectorXd &conf, Eigen::Vector3d &offset, Eigen::MatrixXd &jacobian) const override;

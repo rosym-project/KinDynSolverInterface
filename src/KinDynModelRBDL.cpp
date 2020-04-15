@@ -15,14 +15,15 @@
 KinDynModelRBDL::KinDynModelRBDL(std::string urdf_file_path,
                                  std::string base_name,
                                  std::string ee_name,
-                                 bool floating_base) {
+                                 bool floating_base,
+                                 bool parse_model_verbose) {
 
     this->zeros3 = Eigen::Vector3d::Zero(3);
 
     if(!RigidBodyDynamics::Addons::URDFReadFromFile(urdf_file_path.c_str(),
                                                     & model,
                                                     floating_base,
-                                                    true)) {
+                                                    parse_model_verbose)) {
         std::cerr << "Problem loading the model at the path: " << urdf_file_path <<std::endl;
         // abort();
         // FIXME
