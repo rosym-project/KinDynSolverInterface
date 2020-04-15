@@ -6,7 +6,7 @@
 
 
 //#include <KinDynModelRBDL.hpp>
-#include "KinDynModelRBDL.hpp"
+#include <KinDynModelRBDL.hpp>
 #include <rbdl/addons/urdfreader/urdfreader.h>
 #include <rbdl/rbdl_utils.h>
 #include <iostream>
